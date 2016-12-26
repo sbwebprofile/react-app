@@ -1,0 +1,22 @@
+{
+  "name": "react-app",
+  "version": "1.0.0",
+  "description": "Research React App",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tabalinas/react-app.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Artem Tabalin <tabalinas@gmail.com> (http://tabalin.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tabalinas/react-app/issues"
+  },
+  "homepage": "https://github.com/tabalinas/react-app#readme"
+}
