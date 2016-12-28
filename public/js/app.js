@@ -1,10 +1,14 @@
 
 const ProductList = React.createClass({
     
+    handleProductUpVote(productId) {
+        console.log('Up voted: ' + productId);
+    },
+
     render() {
-        const products = Data.map(product => {
+        const products = this.state.products.map(product => {
             return (
-                <Product 
+                <Product
                     key={'product-' + product.id}
                     id={product.id}
                     title={product.title}
@@ -12,7 +16,8 @@ const ProductList = React.createClass({
                     url={product.url}
                     votes={product.votes}
                     submitter_avatar_url={product.submitter_avatar_url}
-                    product_image_url={product.product_image_url}      
+                    product_image_url={product.product_image_url}
+                    onVote={this.handleProductUpVote}
                 />
             )
         });
@@ -26,6 +31,10 @@ const ProductList = React.createClass({
 });
 
 const Product = React.createClass({
+    handleUpVote() {
+        this.props.onVote(this.props.id);
+    },
+
     render() {
         return (
             <div className='product-item'>
@@ -34,9 +43,7 @@ const Product = React.createClass({
                 </div>
                 <div className='middle aligned content'>
                     <div className='header'>
-                        <a>
-                            <i className='large caret up icon'></i>
-                        </a>
+                        <a onClick={this.handleUpVote}>Upvote</a>
                         {this.props.votes}
                     </div>
                     <div className='description'>
