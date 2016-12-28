@@ -13,20 +13,22 @@ const ProductList = React.createClass({
 
     updateState() {
         const products = Data.sort((p1, p2) => {
-            return p1 - p2;
+            return p2.votes - p1.votes;
         });
         this.setState({ products: products });
     },
 
-    handleProductUpVote(productId) {
+    handleProductVote(productId, voteValue) {
         Data.forEach(product => {
             if(product.id === productId) {
-                product.votes = product.votes + 1;
+                product.votes += voteValue;
             }
         })
 
         this.updateState();
     },
+
+
 
     render() {
         const products = this.state.products.map(product => {
@@ -40,7 +42,7 @@ const ProductList = React.createClass({
                     votes={product.votes}
                     submitter_avatar_url={product.submitter_avatar_url}
                     product_image_url={product.product_image_url}
-                    onVote={this.handleProductUpVote}
+                    onVote={this.handleProductVote}
                 />
             )
         });
@@ -55,7 +57,11 @@ const ProductList = React.createClass({
 
 const Product = React.createClass({
     handleUpVote() {
-        this.props.onVote(this.props.id);
+        this.props.onVote(this.props.id, 1);
+    },
+
+    handleDownVote() {
+        this.props.onVote(this.props.id, -1);
     },
 
     render() {
@@ -67,6 +73,7 @@ const Product = React.createClass({
                 <div className='middle aligned content'>
                     <div className='header'>
                         <a onClick={this.handleUpVote}>Upvote</a>
+                        <a onClick={this.handleDownVote}>Downvote</a>
                         {this.props.votes}
                     </div>
                     <div className='description'>
