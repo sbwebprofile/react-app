@@ -1,8 +1,31 @@
 
 const ProductList = React.createClass({
-    
+
+    getInitialState() {
+        return {
+            products: []
+        };
+    },
+
+    componentDidMount() {
+        this.updateState();
+    },
+
+    updateState() {
+        const products = Data.sort((p1, p2) => {
+            return p1 - p2;
+        });
+        this.setState({ products: products });
+    },
+
     handleProductUpVote(productId) {
-        console.log('Up voted: ' + productId);
+        Data.forEach(product => {
+            if(product.id === productId) {
+                product.votes = product.votes + 1;
+            }
+        })
+
+        this.updateState();
     },
 
     render() {
