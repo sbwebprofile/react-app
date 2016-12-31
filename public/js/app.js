@@ -3,7 +3,8 @@ const ProductList = React.createClass({
 
     getInitialState() {
         return {
-            products: []
+            products: [],
+            isDescendingSort: true
         };
     },
 
@@ -13,7 +14,7 @@ const ProductList = React.createClass({
 
     updateState() {
         const products = Data.sort((p1, p2) => {
-            return p2.votes - p1.votes;
+            return (this.isDescendingSort ? 1 : -1) * (p2.votes - p1.votes);
         });
         this.setState({ products: products });
     },
@@ -28,7 +29,11 @@ const ProductList = React.createClass({
         this.updateState();
     },
 
+    handleSortDirectionChange() {
+        this.isDescendingSort = !this.isDescendingSort;
 
+        this.updateState();
+    },
 
     render() {
         const products = this.state.products.map(product => {
@@ -48,8 +53,11 @@ const ProductList = React.createClass({
         });
 
         return (
-            <div className='product-list'>
-                {products}
+            <div>
+                <a onClick={this.handleSortDirectionChange}>Sort by votes {this.isDescendingSort ? '\u2193' : '\u2191'}</a>
+                <div className='product-list'>
+                    {products}
+                </div>
             </div>
         )
     }
